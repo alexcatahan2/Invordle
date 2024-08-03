@@ -1,0 +1,293 @@
+/* Reset some basic styles */
+body, h1, button, input {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+#preGameContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: #4CAF50;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+button:active {
+    background-color: #3e8e41;
+    transform: scale(0.95);
+}
+
+
+.modal {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+}
+
+.modal-content input {
+    padding: 10px;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    width: 80%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.modal-content button {
+    width: 100%;
+}
+
+
+#playersBox {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#playersBox h2 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+#playersList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#playersList li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 1.2em;
+    color: #333;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+#playersList li:last-child {
+    border-bottom: none;
+}
+
+#playersList li:hover {
+    transform: scale(1.05);
+    background-color: #e0f7fa;
+}
+
+#playersList li::before {
+    content: '🎉 ';
+    font-size: 1.2em;
+    margin-right: 10px;
+    transition: transform 0.2s;
+}
+
+#playersList li:hover::before {
+    transform: rotate(15deg);
+}
+
+#playersList li span {
+    font-weight: bold;
+    color: #00796b;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+#playersBox h2 {
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 2px solid #00796b;
+    padding-bottom: 5px;
+}
+
+.loading-bar {
+    width: 100%;
+    background-color: #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.loading-bar-progress {
+    height: 20px;
+    background-color: #4CAF50;
+    width: 0;
+    transition: width 10s linear; /* Ensure the transition is set for 10 seconds */
+}
+
+
+#inGameContainer{
+    display: none;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 20px;
+}
+
+.player-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.player-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
+}
+
+
+.player-box .box {
+    width: 30px;
+    height: 30px;
+    border: 3px solid #4CAF50;
+    border-radius: 10%;
+    margin-bottom: 10px;
+}
+
+.player-box .name {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.underlines {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.underline {
+    width: 30px;
+    height: 2px;
+    background-color: black;
+    margin: 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    font-weight: bold;
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+
+.underline.reveal {
+    opacity: 0;
+}
+
+.letter {
+    width: 30px;
+    height: 2px;
+    margin: 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    font-weight: bold;
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+
+
+.input-box {
+    margin-top: 10px;
+}
+
+
+.input-box input {
+    padding: 3px;
+    font-size: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 50px; /* Smaller width for the input box */
+}
+
+.flash-wrong {
+    animation: flashWrong 0.5s;
+}
+
+.flash-right {
+    animation: flashRight 0.5s;
+}
+
+@keyframes flashWrong {
+    0% { background-color: red; }
+    100% { background-color: #4CAF50; } /* Assuming original box color */
+}
+
+@keyframes flashRight {
+    0% { background-color: green; }
+    100% { background-color: #4CAF50; } /* Assuming original box color */
+}

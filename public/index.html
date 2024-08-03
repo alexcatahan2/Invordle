@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invordle</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="preGameContainer">
+        <div class="container">
+            <h1>Invordle</h1>
+            <button id="joinGameButton" onclick="joinGame()">Join Game</button>
+            <div id="nameModal" class="modal">
+                <div class="modal-content">
+                    <h2>Enter Your Name</h2>
+                    <input type="text" id="playerName" placeholder="Your name">
+                    <button onclick="submitName()">Submit</button>
+                </div>
+            </div>
+            <button id="startGameButton" onclick="startGameButtonPress()">Start Game</button>
+        </div>
+        <div id="playersBox">
+            <h3>Current Players:</h3>
+            <ul id="playersList"></ul>
+        </div>
+    </div>
+    <div id="startGameModal" class="modal">
+        <div class="modal-content">
+            <h2>Starting game!</h2>
+            <div class="loading-bar">
+                <div class="loading-bar-progress"></div>
+            </div>
+        </div>
+    </div>
+    <div id="inGameContainer">
+        
+    </div>
+    <script src="main.js"></script>
+    
+</body>
+</html>
