@@ -92,12 +92,13 @@ function setupWebSocket(playerName) {
                         inputBox.disabled = true;
 
                         if(gotAnswerAlready == false && playerWhoGuessed == currentPlayersName){ //add score to player who guessed correctly
-                            playerScores.set(playerWhoGuessed, newScore)
-                            //update the display of the players scores
-                            updatePlayerScoreDisplay(playerNameDiv.textContent);
                             gotAnswerAlready = true;
                             playersWhoGuessRight++;
                         }
+                        
+                        playerScores.set(playerWhoGuessed, newScore)
+                        //update the display of the players scores
+                        updatePlayerScoreDisplay(playerNameDiv.textContent);
                        
                     }
                 }
