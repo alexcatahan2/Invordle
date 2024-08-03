@@ -6,6 +6,7 @@ let revealedLetters = [];
 let intervalID;
 let playerScores = new Map();
 let playersWhoGuessRight;
+let gotAnswerAlready = false;
 
 function setupWebSocket(playerName) {
     let wsURL = "";
@@ -86,11 +87,13 @@ function setupWebSocket(playerName) {
                         let inputBox = playerBox.querySelector('input');
                         inputBox.disabled = true;
 
-                        //add score to player who guessed correctly
-                        let currScore = playerScores.get(playerWhoGuessed);
-                        playerScores.set(playerWhoGuessed, currScore + parseInt(pointsRecieved, 10))
-                        //update the display of the players scores
-                        updatePlayerScoreDisplay(playerNameDiv.textContent);
+                        if(gotAnswerAlready == false){ //add score to player who guessed correctly
+                            let currScore = playerScores.get(playerWhoGuessed);
+                            playerScores.set(playerWhoGuessed, currScore + parseInt(pointsRecieved, 10))
+                            //update the display of the players scores
+                            updatePlayerScoreDisplay(playerNameDiv.textContent);
+                            gotAnswerAlready = true;
+                        }
                        
                     }
                 }
@@ -169,6 +172,7 @@ async function startGame(){
     revealedLetters = [];
     //set playersWhoGuessedRight to 0 to prepare for next game
     playersWhoGuessRight = 0;
+    gotAnswerAlready = false;
     const startGameModal = document.getElementById('startGameModal');
     startGameModal.style.display = "flex";
 
