@@ -7,6 +7,7 @@ let intervalID;
 let playerScores = new Map();
 let playersWhoGuessRight;
 let gotAnswerAlready = false;
+let currentPlayersName;
 
 function setupWebSocket(playerName) {
     let wsURL = "";
@@ -55,7 +56,7 @@ function setupWebSocket(playerName) {
             console.log("received response to guess:", message);
             let playerWhoGuessed = message.name;
             let response = message.Content;
-            let pointsRecieved = message.guess;
+            let newScore = message.guess;
             console.log("in wordAnser:", playerWhoGuessed, response);
             console.log("proccessing a reponse for", playerWhoGuessed, "which was", response);
             let playerBoxes = document.querySelectorAll('.player-box');
@@ -75,7 +76,10 @@ function setupWebSocket(playerName) {
                     if (response == "1") {
                         // The guess was right, put a checkmark in the box
                         console.log("adding one to players who guessed right");
-                        playersWhoGuessRight++;
+                        if(playerWhoGuessed != currentPlayersName){
+                            playersWhoGuessRight++;
+                        }
+                       
                         
                         playerBoxDiv.textContent = '✅';
                         playerBoxDiv.classList.add('flash-right');
@@ -87,12 +91,12 @@ function setupWebSocket(playerName) {
                         let inputBox = playerBox.querySelector('input');
                         inputBox.disabled = true;
 
-                        if(gotAnswerAlready == false){ //add score to player who guessed correctly
-                            let currScore = playerScores.get(playerWhoGuessed);
-                            playerScores.set(playerWhoGuessed, currScore + parseInt(pointsRecieved, 10))
+                        if(gotAnswerAlready == false && playerWhoGuessed == currentPlayersName){ //add score to player who guessed correctly
+                            playerScores.set(playerWhoGuessed, newScore)
                             //update the display of the players scores
                             updatePlayerScoreDisplay(playerNameDiv.textContent);
                             gotAnswerAlready = true;
+                            playersWhoGuessRight++;
                         }
                        
                     }
@@ -118,6 +122,7 @@ function joinGame() {
 
 function submitName() {
     const playerName = document.getElementById('playerName').value;
+    currentPlayersName = playerName;
     if (playerName) {
         console.log("Player's name is:", playerName);
         document.getElementById('nameModal').style.display = "none";
@@ -135,7 +140,7 @@ function submitName() {
 function addNewPlayer(playerName){
     console.log("addNewPlayer got: ", playerName);
     const playerBox = document.getElementById("playersList");
-    const playerDiv = document.createElement('div');
+    const playerDiv = document.createElement('li');
 
     playerDiv.style.display = "flex";
     playerDiv.style.flexDirection = "row";
@@ -164,10 +169,11 @@ function startGameButtonPress(){
     
 }
 
+
 async function startGame(){
     console.log("starting game...");
     document.getElementById("preGameContainer").style.display = "none";
-
+    document.querySelector(".nextGameButton").style.display = "none";
     //clear out revealedLetters to prepare for next game
     revealedLetters = [];
     //set playersWhoGuessedRight to 0 to prepare for next game
@@ -193,7 +199,7 @@ async function startGame(){
         console.log("calling functions to start the game");
         showGamePieces();
         startLetterReveal();
-    }, 5000);
+    }, 2000);
 }
 
 function showGamePieces(){
@@ -284,12 +290,13 @@ function startLetterReveal() {
 
         }
 
-        if (revealedLetters.length === 5 || playersWhoGuessRight === players.length*2) {
+        if (revealedLetters.length === 5 || playersWhoGuessRight === players.length) {
             clearInterval(intervalID);
             setTimeout(() => {
-                document.getElementById("preGameContainer").style.display = "flex";
+                // document.getElementById("preGameContainer").style.display = "flex";
                 document.getElementById("inGameContainer").style.display = "none";
-            }, 5000);
+                document.querySelector(".nextGameButton").style.display = "flex";
+            }, 1000);
 
         }
     }, 8000);
@@ -307,4 +314,9 @@ function updatePlayerScoreDisplay(player){
     console.log(`updated player ${player} who now has points ${playerScores.get(player)}`);
     playerScoreDivInGame.innerText = playerScores.get(player);
     playerScoreDivPreGame.innerText = playerScores.get(player);
+}
+
+
+function startNextRound(){
+    startGameButtonPress();
 }

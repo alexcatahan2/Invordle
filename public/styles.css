@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); /* Adding fun font */
+
 /* Reset some basic styles */
 body, h1, button, input {
     margin: 0;
@@ -29,12 +32,60 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+
 h1 {
     font-size: 3em;
     margin-bottom: 20px;
     color: #4CAF50;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: 'Press Start 2P', sans-serif; /* Applying fun font */
+    position: relative;
+    animation: textGlow 1.5s ease-in-out infinite;
+    letter-spacing: -0.4em; /* Adjust this value to bring letters closer together */
 }
+
+
+
+h1 span {
+    animation: fadeInOut 3s ease-in-out infinite;
+}
+
+h1 span:nth-child(odd) {
+    animation-delay: 1.5s;
+}
+
+@keyframes fadeInOut {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+
+#instructions {
+    width: 80%; /* Adjust this value for the desired width */
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+#instructions h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+#instructions p {
+    font-size: 1em;
+    color: #666;
+}
+
 
 button {
     padding: 10px 20px;
@@ -54,44 +105,6 @@ button:hover {
 button:active {
     background-color: #3e8e41;
     transform: scale(0.95);
-}
-
-
-.modal {
-    display: none;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-.modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.modal-content h2 {
-    margin-bottom: 20px;
-}
-
-.modal-content input {
-    padding: 10px;
-    font-size: 1.2em;
-    margin-bottom: 20px;
-    width: 80%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.modal-content button {
-    width: 100%;
 }
 
 
@@ -170,6 +183,45 @@ button:active {
     padding-bottom: 5px;
 }
 
+.modal {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+}
+
+.modal-content input {
+    padding: 10px;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    width: 80%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.modal-content button {
+    width: 100%;
+}
+
+
+
 .loading-bar {
     width: 100%;
     background-color: #ddd;
@@ -182,9 +234,8 @@ button:active {
     height: 20px;
     background-color: #4CAF50;
     width: 0;
-    transition: width 10s linear; /* Ensure the transition is set for 10 seconds */
+    transition: width 2s linear; /* Ensure the transition is set for 10 seconds */
 }
-
 
 #inGameContainer{
     display: none;
@@ -206,8 +257,18 @@ button:active {
     flex-direction: column;
     align-items: center;
     margin: 0 10px;
+    border: 2px solid #4CAF50; /* Border for player boxes */
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #fff;
+    transition: transform 0.3s, background-color 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.player-box:hover {
+    transform: scale(1.05);
+    background-color: #e0f7fa;
+}
 
 .player-box .box {
     width: 30px;
@@ -215,6 +276,9 @@ button:active {
     border: 3px solid #4CAF50;
     border-radius: 10%;
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .player-box .name {
@@ -260,11 +324,9 @@ button:active {
     transition: opacity 0.5s;
 }
 
-
 .input-box {
     margin-top: 10px;
 }
-
 
 .input-box input {
     padding: 3px;
@@ -290,4 +352,9 @@ button:active {
 @keyframes flashRight {
     0% { background-color: green; }
     100% { background-color: #4CAF50; } /* Assuming original box color */
+}
+
+
+.nextGameButton{
+    display: none;
 }
