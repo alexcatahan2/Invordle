@@ -39,14 +39,14 @@ body {
 }
 
 h1 {
-    font-size: 4vw; /* Default responsive font size */
+    font-size: 3vw; /* Default responsive font size */
     margin-bottom: 20px;
     color: #4CAF50;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     font-family: 'Press Start 2P', sans-serif; /* Applying fun font */
     position: relative;
     animation: textGlow 1.5s ease-in-out infinite;
-    letter-spacing: -0.15em; /* Adjust this value to bring letters closer together */
+    letter-spacing: -0.1em; /* Adjust this value to bring letters closer together */
 }
 
 @media screen and (max-width: 600px) {
@@ -472,4 +472,36 @@ button:active {
         font-size: 0.9em;
         padding: 5%;
     }
+}
+
+.winner-animation {
+    font-size: 2em;
+    font-weight: bold;
+    color: #4CAF50;
+    animation: winnerAnimation 2s infinite;
+    text-align: center;
+    margin-top: 20px;
+}
+
+@keyframes winnerAnimation {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* Confetti styles */
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #FFD700;
+    opacity: 0.8;
+    animation: confetti-fall 5s linear infinite;
+    border-radius: 50%;
+    will-change: transform;
+}
+
+@keyframes confetti-fall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
 }

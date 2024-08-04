@@ -9,6 +9,7 @@ let playersWhoGuessRight;
 let gotAnswerAlready = false;
 let currentPlayersName;
 let numRounds = 0;
+let roundsToPlay = 1;
 
 function setupWebSocket(playerName) {
     let wsURL = "";
@@ -300,14 +301,33 @@ function startLetterReveal() {
             populateLeaderBoard();
 
             setTimeout(() => {
-             
+                console.log(`numRounds is ${numRounds} and roundsToPlay is ${roundsToPlay}`);
+                numRounds++;
+                if(numRounds < roundsToPlay){
+                    //get ready for the next round
 
-                //hide the inGames stuff for next round screen
-                document.getElementById("inGameContainer").style.display = "none";
-                //show the next round game button
-                document.querySelector(".nextGameButton").style.display = "flex";
-                //show the leaderboard
-                document.getElementById("leaderboard").style.display = "flex";
+                    //hide the inGames stuff for next round screen
+                    document.getElementById("inGameContainer").style.display = "none";
+                    //show the next round game button
+                    document.querySelector(".nextGameButton").style.display = "flex";
+                    //show the leaderboard
+                    document.getElementById("leaderboard").style.display = "flex";
+                }else{
+                    //show the winner
+                    document.querySelector(".nextGameButton").style.display = "flex";
+                    document.querySelector(".nextGameButton").innerText = "Thanks for playing!";
+                    document.getElementById("leaderboard").style.display = "flex";
+                    document.getElementById("inGameContainer").style.display = "none";
+                    const sortedPlayers = [...playerScores.entries()].sort((a, b) => {
+                        return parseInt(b[1]) - parseInt(a[1]);
+                    });
+                    let winner = sortedPlayers[0];
+
+                    //make winning animation
+                    showWinningAnimation(winner);
+                }
+                
+
             }, 1000);
 
         }
@@ -361,19 +381,65 @@ function populateLeaderBoard(){
 
 function startNextRound(){  
     //this starts the next gaming round
-    console.log("start next round which is round:", numRounds);
 
-    //max of 10 rounds
-    if (numRounds < 10){
-        //hide the leader board
-        document.getElementById("leaderboard").style.display = "none";
-        //hide to next round button
-        document.querySelector(".nextGameButton").style.display = "none";
+    //hide the leader board
+    document.getElementById("leaderboard").style.display = "none";
 
-        startGameButtonPress();   
-    }else{
-        document.getElementById("leaderboard").style.display = "none";
-        //make winning animation
+    //hide to next round button
+    document.querySelector(".nextGameButton").style.display = "none";
+
+    startGameButtonPress();   
+    
+}
+
+function showWinningAnimation(winner) {
+    // Create a div for the winning animation
+    const winnerDiv = document.createElement('div');
+    winnerDiv.classList.add('winner-animation');
+    winnerDiv.innerText = `Winner: ${winner[0]}`; // Display the winner's name
+
+    // Append the winnerDiv to the leaderboard
+    const leaderboard = document.getElementById('leaderboard');
+    leaderboard.appendChild(winnerDiv);
+
+    // Create confetti
+    startConfetti();
+
+    // Remove the winnerDiv after 10 seconds
+    setTimeout(() => {
+        winnerDiv.remove();
+        stopConfetti();
+    }, 10000);
+}
+
+function startConfetti() {
+    createConfetti();
+    confettiInterval = setInterval(createConfetti, 300);
+}
+
+function stopConfetti() {
+    clearInterval(confettiInterval);
+    const confettis = document.querySelectorAll('.confetti');
+    confettis.forEach(confetti => confetti.remove());
+}
+
+function createConfetti() {
+    for (let i = 0; i < 10; i++) {
+        let confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.width = Math.random() * 10 + 5 + 'px';
+        confetti.style.height = confetti.style.width;
+        confetti.style.backgroundColor = getRandomColor();
+        document.body.appendChild(confetti);
+
+        setTimeout(() => {
+            confetti.remove();
+        }, 5000); // Remove confetti after 5 seconds
     }
-    numRounds++;
+}
+
+function getRandomColor() {
+    const colors = ['#FFD700', '#FF4500', '#1E90FF', '#32CD32', '#FF69B4', '#8A2BE2', '#00FFFF', '#FF6347', '#ADFF2F', '#FFB6C1'];
+    return colors[Math.floor(Math.random() * colors.length)];
 }
