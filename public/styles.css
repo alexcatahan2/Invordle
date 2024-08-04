@@ -39,16 +39,27 @@ body {
 }
 
 h1 {
-    font-size: 2em;
+    font-size: 4vw; /* Default responsive font size */
     margin-bottom: 20px;
     color: #4CAF50;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     font-family: 'Press Start 2P', sans-serif; /* Applying fun font */
     position: relative;
     animation: textGlow 1.5s ease-in-out infinite;
-    letter-spacing: -0.4em; /* Adjust this value to bring letters closer together */
+    letter-spacing: -0.15em; /* Adjust this value to bring letters closer together */
 }
 
+@media screen and (max-width: 600px) {
+    h1 {
+        font-size: 8vw; /* Smaller screen size */
+    }
+}
+
+@media screen and (max-width: 400px) {
+    h1 {
+        font-size: 10vw; /* Very small screen size */
+    }
+}
 h1 span {
     animation: fadeInOut 3s ease-in-out infinite;
 }
