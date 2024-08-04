@@ -221,6 +221,7 @@ function showGamePieces(){
 
     // Append the underlines container to the inGameContainer
     inGameContainer.appendChild(underlinesContainer);
+    inGameContainer.style.color = "white";
 
     // Create the players container
     const playersContainer = document.createElement("div");
@@ -235,7 +236,7 @@ function showGamePieces(){
 
         const scoreDiv = document.createElement("div");
         scoreDiv.classList.add(player +"-scoreDivInGame");
-
+        
         scoreDiv.innerText = playerScores.get(player);
 
         const nameDiv = document.createElement("div");
