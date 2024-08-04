@@ -9,7 +9,7 @@ let playersWhoGuessRight;
 let gotAnswerAlready = false;
 let currentPlayersName;
 let numRounds = 0;
-let roundsToPlay = 1;
+let roundsToPlay = 5;
 
 function setupWebSocket(playerName) {
     let wsURL = "";
