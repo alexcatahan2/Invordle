@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); /* Adding fun font */
 
 /* Reset some basic styles */
@@ -18,10 +17,14 @@ body {
     color: #333;
 }
 
-#preGameContainer{
+#preGameContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    margin: auto;
 }
 
 .container {
@@ -30,8 +33,8 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
 }
-
 
 h1 {
     font-size: 3em;
@@ -43,8 +46,6 @@ h1 {
     animation: textGlow 1.5s ease-in-out infinite;
     letter-spacing: -0.4em; /* Adjust this value to bring letters closer together */
 }
-
-
 
 h1 span {
     animation: fadeInOut 3s ease-in-out infinite;
@@ -62,7 +63,6 @@ h1 span:nth-child(odd) {
         opacity: 0.5;
     }
 }
-
 
 #instructions {
     width: 80%; /* Adjust this value for the desired width */
@@ -86,7 +86,6 @@ h1 span:nth-child(odd) {
     color: #666;
 }
 
-
 button {
     padding: 10px 20px;
     font-size: 1.2em;
@@ -96,6 +95,9 @@ button {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
+    width: 80%;
+    max-width: 300px;
+    margin: 10px 0;
 }
 
 button:hover {
@@ -107,7 +109,6 @@ button:active {
     transform: scale(0.95);
 }
 
-
 #playersBox {
     margin-top: 20px;
     padding: 20px;
@@ -115,7 +116,8 @@ button:active {
     border-radius: 10px;
     background-color: #f9f9f9;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 300px;
+    width: 80%;
+    max-width: 600px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -220,8 +222,6 @@ button:active {
     width: 100%;
 }
 
-
-
 .loading-bar {
     width: 100%;
     background-color: #ddd;
@@ -234,10 +234,10 @@ button:active {
     height: 20px;
     background-color: #4CAF50;
     width: 0;
-    transition: width 2s linear; /* Ensure the transition is set for 10 seconds */
+    transition: width 10s linear; /* Ensure the transition is set for 10 seconds */
 }
 
-#inGameContainer{
+#inGameContainer {
     display: none;
     justify-content: space-around;
     align-items: center;
@@ -246,12 +246,13 @@ button:active {
     padding: 20px;
 }
 
-.player-container{
+.player-container {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 }
+
 .player-box {
     display: flex;
     flex-direction: column;
@@ -354,7 +355,90 @@ button:active {
     100% { background-color: #4CAF50; } /* Assuming original box color */
 }
 
+.roundTransitionDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
-.nextGameButton{
+.nextGameButton {
     display: none;
+    margin-bottom: 20px;
+}
+
+#leaderboard {
+    display: none;
+    text-align: center;
+    background-color: #fff;
+    flex-direction: column;
+    padding: 2%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 90%;
+    margin: 2% auto;
+    transition: transform 0.3s;
+}
+
+#leaderboard h4 {
+    margin-bottom: 5%;
+    color: #333;
+    font-size: 1em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 2px solid #00796b;
+    padding-bottom: 5px;
+}
+
+#leaderboardList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    max-width: 100%;
+    overflow: auto;
+}
+
+#leaderboardList li {
+    padding: 5%;
+    border-bottom: 1px solid #ddd;
+    font-size: 1.2em;
+    color: #333;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    margin-bottom: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+#leaderboardList li:last-child {
+    border-bottom: none;
+}
+
+#leaderboardList li:hover {
+    transform: scale(1.05);
+    background-color: #e0f7fa;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 600px) {
+    #leaderboard h2 {
+        font-size: 1.5em;
+    }
+    #leaderboardList li {
+        font-size: 1em;
+        padding: 5%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    #leaderboard h2 {
+        font-size: 1.2em;
+    }
+    #leaderboardList li {
+        font-size: 0.9em;
+        padding: 5%;
+    }
 }

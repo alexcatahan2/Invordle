@@ -8,6 +8,7 @@ let playerScores = new Map();
 let playersWhoGuessRight;
 let gotAnswerAlready = false;
 let currentPlayersName;
+let numRounds = 0;
 
 function setupWebSocket(playerName) {
     let wsURL = "";
@@ -95,7 +96,7 @@ function setupWebSocket(playerName) {
                             gotAnswerAlready = true;
                             playersWhoGuessRight++;
                         }
-                        
+
                         playerScores.set(playerWhoGuessed, newScore)
                         //update the display of the players scores
                         updatePlayerScoreDisplay(playerNameDiv.textContent);
@@ -292,11 +293,20 @@ function startLetterReveal() {
         }
 
         if (revealedLetters.length === 5 || playersWhoGuessRight === players.length) {
+            //the current game round is over
             clearInterval(intervalID);
+            //populate the leader board so the next round loading screen shows placements
+            populateLeaderBoard();
+
             setTimeout(() => {
-                // document.getElementById("preGameContainer").style.display = "flex";
+             
+
+                //hide the inGames stuff for next round screen
                 document.getElementById("inGameContainer").style.display = "none";
+                //show the next round game button
                 document.querySelector(".nextGameButton").style.display = "flex";
+                //show the leaderboard
+                document.getElementById("leaderboard").style.display = "flex";
             }, 1000);
 
         }
@@ -318,6 +328,51 @@ function updatePlayerScoreDisplay(player){
 }
 
 
-function startNextRound(){
-    startGameButtonPress();
+function populateLeaderBoard(){
+    const leaderBoard = document.getElementById("leaderboard");
+    leaderBoard.innerHTML = "";
+
+
+    const leaderBoardHeader = document.createElement('h4');
+    leaderBoardHeader.innerText = "LEADERBOARD";
+
+    const leaderBoardList = document.createElement('ul');
+    leaderBoardList.id = "leaderboardList";
+
+    const sortedPlayers = [...playerScores.entries()].sort((a, b) => {
+        return parseInt(b[1]) - parseInt(a[1]);
+    });
+
+    let placement = 1;   
+
+    
+    sortedPlayers.forEach(([player, score]) => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${placement}. ${player}: ${score}`;
+        placement++;
+        leaderBoardList.appendChild(listItem);
+    });
+
+    leaderBoard.appendChild(leaderBoardHeader);
+    leaderBoard.appendChild(leaderBoardList);
+    
+}
+
+function startNextRound(){  
+    //this starts the next gaming round
+    console.log("start next round which is round:", numRounds);
+
+    //max of 10 rounds
+    if (numRounds < 10){
+        //hide the leader board
+        document.getElementById("leaderboard").style.display = "none";
+        //hide to next round button
+        document.querySelector(".nextGameButton").style.display = "none";
+
+        startGameButtonPress();   
+    }else{
+        document.getElementById("leaderboard").style.display = "none";
+        //make winning animation
+    }
+    numRounds++;
 }
